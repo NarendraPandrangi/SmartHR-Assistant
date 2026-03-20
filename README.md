@@ -1,6 +1,6 @@
 # Dynamic Knowledge Retrieval Chatbot (RAG)
 
-🌍 **Live Demo:** [https://smart-hr-assistant.vercel.app/](https://smart-hr-assistant.vercel.app/)
+🌍 **Live Demo:** [https://smart-hr-assistant.vercel.app/](https://smart-hr-assistant-7h8k.vercel.app/)
 
 This project implements **Problem Statement 6: Dynamic Knowledge Retrieval Chatbot (RAG)**. It is a full-stack Retrieval-Augmented Generation (RAG) application that allows users to upload documents dynamically and interact with a chatbot that retrieves context-aware answers natively from the uploaded content.
 
