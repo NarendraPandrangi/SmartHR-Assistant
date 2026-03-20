@@ -1,71 +1,58 @@
 import os
 import requests
-from sentence_transformers import SentenceTransformer
 import numpy as np
 import uuid
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Configuration details
 KRUTRIM_API_KEY = os.environ.get("KRUTRIM_API_KEY", "6CIYq3OVlXswA9FW4eME6Hqv")
 KRUTRIM_API_URL = "https://cloud.olakrutrim.com/v1/chat/completions"
 
-# Initialize embedding model
-try:
-    embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-    embedding_dim = embedding_model.get_sentence_embedding_dimension()
-except Exception as e:
-    print(f"Error loading model: {e}")
-    embedding_dim = 384 # Default for all-MiniLM-L6-v2
-
-# In-memory numpy List
-embeddings_store = []
+# Memory Stores
+vectorizer = TfidfVectorizer(stop_words='english')
 documents_store = {} 
+texts_corpus = []
 current_id = 0
 
 from typing import Optional
 
 def add_document_to_store(content: str, metadata: Optional[dict] = None):
-    global current_id
+    global current_id, texts_corpus
     chunks = [c for c in content.split('\n\n') if c.strip()]
     added_ids = []
     
     for chunk in chunks:
-        vector = embedding_model.encode([chunk])[0]
-        # L2 normalize
-        norm = np.linalg.norm(vector)
-        v = vector / norm if norm > 0 else vector
-        embeddings_store.append(v)
-        
         doc_uuid = str(uuid.uuid4())
         documents_store[current_id] = {"content": chunk, "metadata": metadata, "id": doc_uuid}
+        texts_corpus.append(chunk)
         added_ids.append(doc_uuid)
         current_id += 1
         
     return added_ids
 
 def retrieve_context(query: str, top_k: int = 3):
-    if len(embeddings_store) == 0:
+    if len(texts_corpus) == 0:
         return []
     
-    query_vector = embedding_model.encode([query])[0]
-    norm = np.linalg.norm(query_vector)
-    v = query_vector / norm if norm > 0 else query_vector
-    
-    similarities = []
-    for idx, emb in enumerate(embeddings_store):
-        sim = np.dot(v, emb)
-        similarities.append((sim, idx))
+    try:
+        tfidf_matrix = vectorizer.fit_transform(texts_corpus)
+        query_vec = vectorizer.transform([query])
+        sims = cosine_similarity(query_vec, tfidf_matrix).flatten()
         
-    similarities.sort(key=lambda x: x[0], reverse=True)
-    
-    k = min(top_k, len(embeddings_store))
-    top_results = similarities[:k]
-    
-    retrieved_texts = []
-    for sim, idx in top_results:
-        if sim > 0.15 and idx in documents_store:
-            retrieved_texts.append(documents_store[idx]["content"])
-                
-    return retrieved_texts
+        # Sort indices descending
+        best_indices = sims.argsort()[::-1]
+        
+        retrieved_texts = []
+        for idx in best_indices:
+            if len(retrieved_texts) >= top_k: break
+            if sims[idx] > 0.05 and idx in documents_store:
+                retrieved_texts.append(documents_store[idx]["content"])
+        
+        return retrieved_texts
+    except Exception as e:
+        print(f"Retrieval Error: {e}")
+        return []
 
 def generate_answer(query: str, context_texts: list):
     if not context_texts:
