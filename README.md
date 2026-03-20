@@ -4,6 +4,23 @@
 
 This project implements **Problem Statement 6: Dynamic Knowledge Retrieval Chatbot (RAG)**. It is a full-stack Retrieval-Augmented Generation (RAG) application that allows users to upload documents dynamically and interact with a chatbot that retrieves context-aware answers natively from the uploaded content.
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](assets/home-page.png)
+
+### Sign Up Page
+![Sign Up Page](assets/sign-up-page.png)
+
+### Login Page
+![Login Page](assets/login-page.png)
+
+### Dashboard
+![Dashboard](assets/dashboard-empty.png)
+
+### Chat Interaction
+![Dashboard Chat Interaction](assets/dashboard-chat.png)
+
 ## 🚀 Key Features
 - **Retrieval Pipeline**: A robust ingestion engine that extracts text from `.txt` and `.pdf` files, segments them into chunks, bounds them to high-dimensional embeddings, and stores them in a lightning-fast vector array.
 - **Context-Based Answer Generation**: Queries are instantly paired with identical context chunks via cosine similarity scoring before being passed to the Krutrim LLM API for accurate reasoning.
