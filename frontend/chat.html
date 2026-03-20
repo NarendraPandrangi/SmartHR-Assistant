@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartHR - RAG Chatbot</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+  <!-- Chat Interface -->
+  <div class="glass-container chat-wrapper" id="chat-container">
+    <div class="chat-header">
+      <h1>Dynamic Knowledge Retrieval Chatbot</h1>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <label for="file-upload" class="btn" style="width: auto; padding: 8px 16px; margin: 0; cursor: pointer; font-size: 14px; background: rgba(88, 166, 255, 0.2); border: 1px solid var(--primary);">
+          Upload Knowledge
+        </label>
+        <input type="file" id="file-upload" style="display: none;" accept=".txt,.md,.csv">
+        <button class="btn" id="btn-logout" style="width: auto; padding: 8px 16px; background: rgba(240, 106, 106, 0.2); border: 1px solid var(--error); color: var(--error);">
+          Log Out
+        </button>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chat-box">
+      <div class="message bot">
+        Hello! I'm your Dynamic RAG Chatbot. You can upload documents to build my knowledge base dynamically, and then ask me questions about them!
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="chat-input" placeholder="Type your message here..." autocomplete="off">
+      <button class="btn" id="btn-send">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

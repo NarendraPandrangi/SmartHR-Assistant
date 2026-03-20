@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartHR - Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+  <!-- Auth Container -->
+  <div class="glass-container" id="auth-container">
+    <div id="login-view">
+      <h1 class="title">Welcome Back</h1>
+      <p class="subtitle">Log in to your SmartHR account</p>
+      
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" required>
+      </div>
+      
+      <button class="btn" id="btn-login">Log In</button>
+      
+      <div class="divider">OR</div>
+      
+      <button class="btn btn-google" id="btn-google-login">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="toggle-links">
+        <p>Don't have an account? <a href="#" id="link-signup">Sign up</a></p>
+      </div>
+    </div>
+
+    <div id="signup-view" class="hidden">
+      <h1 class="title">Create Account</h1>
+      <p class="subtitle">Join SmartHR for Intelligent Assistance</p>
+      
+      <div class="form-group">
+        <label for="signup-name">Full Name</label>
+        <input type="text" id="signup-name" placeholder="John Doe" required>
+      </div>
+
+      <div class="form-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" placeholder="Create a password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="signup-confirm">Confirm Password</label>
+        <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+      </div>
+      
+      <button class="btn" id="btn-signup">Sign Up</button>
+      
+      <div class="divider">OR</div>
+      
+      <button class="btn btn-google" id="btn-google-signup">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+        Sign up with Google
+      </button>
+
+      <div class="toggle-links">
+        <p>Already have an account? <a href="#" id="link-login">Log in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
