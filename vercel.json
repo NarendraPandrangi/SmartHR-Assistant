@@ -1,5 +1,3 @@
 {
-  "framework": null,
-  "buildCommand": "node inject_env.js",
-  "outputDirectory": "frontend"
+  "outputDirectory": "public"
 }
