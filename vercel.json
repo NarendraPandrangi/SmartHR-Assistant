@@ -1,4 +1,5 @@
 {
-  "buildCommand": "node frontend/inject_env.js && mkdir -p public && cp -r frontend/* public/",
-  "outputDirectory": "public"
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": "frontend"
 }

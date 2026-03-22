@@ -19,9 +19,10 @@ const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // App Settings
-// The backend URL is injected from the Vercel/Render .env automatically during build.
-const injectedUrl = "{BACKEND_URL_INJECT}";
-const BACKEND_DOMAIN = injectedUrl.startsWith("{") ? "http://localhost:8000" : injectedUrl;
+// Hardcoded backend URL for Vercel deployment. Defaults to localhost for local testing.
+const BACKEND_DOMAIN = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" 
+    ? "http://localhost:8000" 
+    : "https://smart-hr-assistant22.vercel.app";
 
 const FASTAPI_URL = `${BACKEND_DOMAIN}/api/chat`;
 const UPLOAD_URL = `${BACKEND_DOMAIN}/api/upload`;

@@ -1,7 +1,0 @@
-{
-  "name": "smarthr-assistant-frontend",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "node frontend/inject_env.js && mkdir -p public && cp -r frontend/* public/"
-  }
-}
