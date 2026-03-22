@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const backendUrl = process.env.BACKEND_URL;
 
@@ -7,7 +8,8 @@ if (!backendUrl) {
     process.exit(0);
 }
 
-const file = 'frontend/app.js';
+// Since Vercel is running this inside the frontend/ directory, app.js is right next to it.
+const file = path.join(__dirname, 'app.js');
 let content = fs.readFileSync(file, 'utf8');
 
 content = content.replace('{BACKEND_URL_INJECT}', backendUrl);
