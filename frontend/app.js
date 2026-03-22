@@ -19,8 +19,10 @@ const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // App Settings
-// NOTE: Change this to your Render/Heroku backend URL when deploying live!
-const BACKEND_DOMAIN = "http://localhost:8000"; 
+// The backend URL is injected from the Vercel/Render .env automatically during build.
+const injectedUrl = "{BACKEND_URL_INJECT}";
+const BACKEND_DOMAIN = injectedUrl.startsWith("{") ? "http://localhost:8000" : injectedUrl;
+
 const FASTAPI_URL = `${BACKEND_DOMAIN}/api/chat`;
 const UPLOAD_URL = `${BACKEND_DOMAIN}/api/upload`;
 
