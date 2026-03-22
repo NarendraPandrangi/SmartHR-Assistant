@@ -46,7 +46,15 @@ async def upload_document(file: UploadFile = File(...)):
         else:
             text_content = content.decode("utf-8", errors="ignore")
             
+        text_content = text_content.strip()
+        if not text_content:
+            raise Exception("No readable text could be extracted from this file. (If this is a PDF, it may be a scanned image or locked).")
+            
         doc_ids = rag_engine.add_document_to_store(text_content, {"filename": file.filename})
+        
+        if not doc_ids:
+            raise Exception("File didn't contain enough valid text paragraphs to index.")
+            
         return {"message": "File successfully uploaded and indexed.", "doc_ids": doc_ids}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to process file: {str(e)}")

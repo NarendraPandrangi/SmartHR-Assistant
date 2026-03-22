@@ -46,7 +46,7 @@ def retrieve_context(query: str, top_k: int = 3):
         retrieved_texts = []
         for idx in best_indices:
             if len(retrieved_texts) >= top_k: break
-            if sims[idx] > 0.05 and idx in documents_store:
+            if sims[idx] > 0.01 and idx in documents_store:
                 retrieved_texts.append(documents_store[idx]["content"])
         
         return retrieved_texts
