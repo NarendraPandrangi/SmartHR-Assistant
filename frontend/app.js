@@ -202,9 +202,16 @@ if (isChatPage) {
           body: formData
         });
         
-        if (!res.ok) throw new Error("Upload failed on the server.");
+        let data;
+        try {
+          data = await res.json();
+        } catch(e) {}
         
-        const data = await res.json();
+        if (!res.ok) {
+          const errMsg = (data && data.detail) ? data.detail : "Upload failed on the server.";
+          throw new Error(errMsg);
+        }
+        
         setTypingIndicator(false);
         appendMessage(`Success! ${file.name} has been downloaded and indexed into my knowledge base.`, 'bot');
       } catch (err) {
